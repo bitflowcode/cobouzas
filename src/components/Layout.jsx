@@ -14,16 +14,15 @@ const Layout = () => {
               <div className="w-1 h-1 bg-white rounded-full"></div>
               <div className="w-1 h-1 bg-white rounded-full"></div>
             </div>
-            <div className="w-6 h-6 bg-white bg-opacity-20 rounded flex items-center justify-center">
+            <div className="w-6 h-6 rounded flex items-center justify-center">
               🦷
             </div>
             <span className="font-medium text-sm">Centro Odontológico Bouzas</span>
           </div>
           
           {/* Iconos funcionales del lado derecho */}
-          <div className="flex items-center space-x-4">
-            {/* Icono de señal (decorativo) */}
-            <div className="text-xs opacity-70">📶</div>
+          <div className="flex items-center space-x-1">
+
             
             {/* Calendario - Citas */}
             <button 
@@ -40,7 +39,7 @@ const Layout = () => {
               className="p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition-colors"
               title="Cupones"
             >
-              <span className="text-lg">🎟️</span>
+              <span className="text-xl">🎟️</span>
             </button>
           </div>
         </div>

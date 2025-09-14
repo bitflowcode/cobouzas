@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import HeroCarousel from '../components/HeroCarousel'
 import NewsCard from '../components/NewsCard'
+import { useApi } from '../hooks/useApi'
 
 const Home = () => {
   const navigate = useNavigate()
+  const { isConnected, apiUrl } = useApi()
 
   const newsItems = [
     {
@@ -30,6 +32,14 @@ const Home = () => {
     <>
       {/* Hero Carousel */}
       <HeroCarousel />
+
+      {/* API Status - Solo visible en desarrollo */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="bg-gray-100 p-2 text-center text-xs border-b">
+          <span className={`inline-block w-2 h-2 rounded-full mr-2 ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
+          API Backend: {isConnected ? '✅ Conectada' : '❌ Desconectada'} ({apiUrl})
+        </div>
+      )}
 
       {/* Contenido principal */}
       <div className="space-y-6">
@@ -96,7 +106,7 @@ const Home = () => {
             <div className="p-4">
               <h3 className="font-semibold text-gray-800">Centro Odontológico Bouzas</h3>
               <p className="text-sm text-gray-600 flex items-center mt-1">
-                <span className="mr-1">📍</span>Rua Serafín Avendaño Vigo
+                <span className="mr-1">📍</span>Rua Johan Carballeira, 6 - 36208 Vigo
               </p>
               <p className="text-xs text-gray-500 mt-1">465 km</p>
             </div>
