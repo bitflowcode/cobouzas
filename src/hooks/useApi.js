@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
-const API_BASE_URL = 'http://localhost:3001';
+// Usar variable de entorno o fallback para desarrollo
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.appdentalbouzas.com';
 
 export const useApi = () => {
   const [isConnected, setIsConnected] = useState(false);

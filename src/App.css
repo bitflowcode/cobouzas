@@ -40,3 +40,13 @@ body {
   margin-left: 0;
   margin-right: 0;
 }
+
+/* Scroll horizontal para posts */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

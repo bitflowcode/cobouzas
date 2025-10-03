@@ -1,32 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import HeroCarousel from '../components/HeroCarousel'
 import NewsCard from '../components/NewsCard'
-import { useApi } from '../hooks/useApi'
+import ServiceCard from '../components/ServiceCard'
+import { useApi, usePosts, useServices } from '../hooks/useApi'
 
 const Home = () => {
   const navigate = useNavigate()
   const { isConnected, apiUrl } = useApi()
-
-  const newsItems = [
-    {
-      id: 1,
-      icon: "🥗",
-      title: "Comer Sano - Consejos de tu dentista",
-      bgColor: "bg-green-100"
-    },
-    {
-      id: 2,
-      icon: "👶", 
-      title: "Consejos de tu dentista",
-      bgColor: "bg-blue-100"
-    },
-    {
-      id: 3,
-      icon: "📊",
-      title: "Infografías sobre salud bucodental", 
-      bgColor: "bg-purple-100"
-    }
-  ]
+  const { posts, loading: postsLoading } = usePosts()
+  const { services, loading: servicesLoading } = useServices()
 
   return (
     <>
@@ -37,63 +19,89 @@ const Home = () => {
       {process.env.NODE_ENV === 'development' && (
         <div className="bg-gray-100 p-2 text-center text-xs border-b">
           <span className={`inline-block w-2 h-2 rounded-full mr-2 ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
-          API Backend: {isConnected ? '✅ Conectada' : '❌ Desconectada'} ({apiUrl})
+          API Backend: {isConnected ? 'Conectada' : 'Desconectada'} ({apiUrl})
         </div>
       )}
 
       {/* Contenido principal */}
       <div className="space-y-6">
-        {/* Novedades */}
+        {/* Novedades - DINÁMICAS */}
         <section className="pt-6 bg-gray-50">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 px-4">Novedades</h2>
+          <div className="flex justify-between items-center mb-4 px-4">
+            <h2 className="text-xl font-semibold text-gray-800">Novedades</h2>
+            {posts.length > 0 && (
+              <button
+                onClick={() => navigate('/posts')}
+                className="text-sm text-teal-600 font-medium hover:text-teal-700"
+              >
+                Ver todos
+              </button>
+            )}
+          </div>
           <div className="px-4">
-            <div className="grid grid-cols-3 gap-3">
-              {newsItems.map((item) => (
-                <NewsCard
-                  key={item.id}
-                  icon={item.icon}
-                  title={item.title}
-                  bgColor={item.bgColor}
-                />
-              ))}
-            </div>
+            {postsLoading ? (
+              <div className="text-center py-4">
+                <span className="text-gray-500">Cargando novedades...</span>
+              </div>
+            ) : posts.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                <div className="text-4xl mb-2">📄</div>
+                <p>No hay novedades disponibles</p>
+              </div>
+            ) : (
+              <div className="w-full overflow-hidden">
+                <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-hide md:justify-center md:flex-wrap md:overflow-visible">
+                  {posts.slice(0, 5).map((item) => (
+                    <div key={item.id} className="flex-shrink-0 w-32 md:w-40">
+                      <NewsCard
+                        icon={item.icon}
+                        title={item.title}
+                        bgColor={item.bg_color}
+                        slug={item.slug}
+                        post={item}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
-        {/* Estética - CLICKEABLE */}
-        <section id="servicios-section" className="bg-gray-50 mobile-full-width">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 px-4">Estética</h2>
-          <div 
-            className="bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => navigate('/estetica')}
-          >
-            <div className="w-full h-48 bg-gradient-to-r from-orange-100 to-yellow-100 flex items-center justify-center">
-              <span className="text-6xl">😁</span>
+      {/* Servicios - DINÁMICOS con componente ServiceCard */}
+      {servicesLoading ? (
+          <div className="text-center py-8">
+            <span className="text-gray-500">Cargando servicios...</span>
+          </div>
+        ) : services.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            <div className="text-4xl mb-2">🦷</div>
+            <p>No hay servicios disponibles</p>
+          </div>
+        ) : (
+          <div className="space-y-6 px-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold text-gray-800">Nuestros Servicios</h2>
+              <button
+                onClick={() => navigate('/servicios')}
+                className="text-sm text-teal-600 font-medium hover:text-teal-700"
+              >
+                Ver todos
+              </button>
             </div>
-            <div className="p-4">
-              <span className="text-xs text-teal-600 font-medium uppercase tracking-wide">Tratamiento</span>
-              <h3 className="font-semibold text-gray-800 mt-1">Blanqueamiento dental</h3>
+            <div className="space-y-4">
+              {services
+                .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+                .slice(0, 3)
+                .map((service) => (
+                  <ServiceCard key={service.id} service={service} variant="full" />
+                ))
+              }
             </div>
           </div>
-        </section>
+        )}
 
-        {/* Implantología oral - CLICKEABLE */}
-        <section className="bg-gray-50 mobile-full-width">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 px-4">Implantología oral</h2>
-          <div 
-            className="bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => navigate('/implantologia')}
-          >
-            <div className="w-full h-48 bg-gradient-to-r from-blue-50 to-blue-100 flex items-center justify-center">
-              <span className="text-6xl">🦷</span>
-            </div>
-            <div className="p-4">
-              <h3 className="font-semibold text-gray-800">Cirugía e implantes</h3>
-            </div>
-          </div>
-        </section>
-
-        {/* Resto del contenido igual... */}
+        {/* Dónde estamos - ESTÁTICO (OK) */}
         <section className="bg-gray-50 mobile-full-width">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 px-4">Dónde estamos</h2>
           <div className="bg-white shadow-sm">
