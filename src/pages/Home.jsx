@@ -123,8 +123,18 @@ const Home = () => {
 
         {/* Footer Links */}
         <div className="pt-4 pb-6 border-t border-gray-200 space-y-2 bg-white mobile-full-width">
-          <button className="block w-full text-center py-3 text-gray-600 text-sm">Términos y condiciones</button>
-          <button className="block w-full text-center py-3 text-gray-600 text-sm">Política de privacidad</button>
+          <button 
+            onClick={() => navigate('/terminos')}
+            className="block w-full text-center py-3 text-gray-600 text-sm hover:text-teal-600 transition-colors"
+          >
+            Términos y condiciones
+          </button>
+          <button 
+            onClick={() => navigate('/privacidad')}
+            className="block w-full text-center py-3 text-gray-600 text-sm hover:text-teal-600 transition-colors"
+          >
+            Política de privacidad
+          </button>
         </div>
       </div>
     </>
