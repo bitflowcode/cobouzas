@@ -53,7 +53,7 @@ const Layout = () => {
       </header>
 
       {/* Contenido de cada página - Ancho máximo en desktop con padding bottom para el nav */}
-      <main className="max-w-7xl mx-auto pb-16">
+      <main className="max-w-7xl mx-auto pb-24">
         <Outlet />
       </main>
 
