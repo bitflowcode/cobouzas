@@ -12,7 +12,7 @@ const Layout = () => {
             <div className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded flex items-center justify-center">
               <span className="text-xl md:text-2xl lg:text-3xl">🦷</span>
             </div>
-            <span className="font-medium text-sm md:text-lg lg:text-xl">Centro Odontológico Bouzas</span>
+            <span className="font-medium text-base md:text-lg lg:text-xl">Centro Odontológico Bouzas</span>
           </div>
           
           {/* Iconos funcionales del lado derecho */}
