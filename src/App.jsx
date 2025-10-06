@@ -13,6 +13,9 @@ import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import TerminosCondiciones from './pages/TerminosCondiciones'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad'
+import Centro from './pages/Centro'
+import Ajustes from './pages/Ajustes'
+import Creditos from './pages/Creditos'
 import './App.css'
 
 function App() {
@@ -30,6 +33,9 @@ function App() {
         <Route path="/urgencias" element={<Urgencias />} />
         <Route path="/cupones" element={<Cupones />} />
         <Route path="/servicios" element={<Services />} />
+        <Route path="/centro" element={<Centro />} />
+        <Route path="/ajustes" element={<Ajustes />} />
+        <Route path="/creditos" element={<Creditos />} />
         <Route path="/terminos" element={<TerminosCondiciones />} />
         <Route path="/privacidad" element={<PoliticaPrivacidad />} />
         {/* Rutas de posts */}

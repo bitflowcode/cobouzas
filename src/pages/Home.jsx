@@ -3,6 +3,7 @@ import HeroCarousel from '../components/HeroCarousel'
 import NewsCard from '../components/NewsCard'
 import ServiceCard from '../components/ServiceCard'
 import { useApi, usePosts, useServices } from '../hooks/useApi'
+import frenteImage from '../assets/frente-centro-odontologico-bouzas.jpeg'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -104,12 +105,16 @@ const Home = () => {
         {/* Dónde estamos - ESTÁTICO (OK) */}
         <section className="bg-gray-50 mobile-full-width">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 px-4">Dónde estamos</h2>
-          <div className="bg-white shadow-sm">
-            <div className="w-full h-48 bg-gradient-to-r from-gray-100 to-gray-200 flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-4xl block mb-2">🏢</span>
-                <span className="text-lg font-bold text-gray-600">BOUZAS</span>
-              </div>
+          <div 
+            className="bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/centro')}
+          >
+            <div className="w-full h-48 overflow-hidden">
+              <img
+                src={frenteImage}
+                alt="Centro Odontológico Bouzas"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="p-4">
               <h3 className="font-semibold text-gray-800">Centro Odontológico Bouzas</h3>
