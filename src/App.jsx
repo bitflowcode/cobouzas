@@ -17,6 +17,7 @@ import PoliticaPrivacidad from './pages/PoliticaPrivacidad'
 import Centro from './pages/Centro'
 import Ajustes from './pages/Ajustes'
 import Creditos from './pages/Creditos'
+import Contacto from './pages/Contacto'
 import './App.css'
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/cupones" element={<Cupones />} />
         <Route path="/servicios" element={<Services />} />
         <Route path="/centro" element={<Centro />} />
+        <Route path="/contacto" element={<Contacto />} />
         <Route path="/ajustes" element={<Ajustes />} />
         <Route path="/creditos" element={<Creditos />} />
         <Route path="/terminos" element={<TerminosCondiciones />} />
