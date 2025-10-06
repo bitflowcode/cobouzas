@@ -45,9 +45,25 @@ const Posts = () => {
               onClick={() => navigate(`/posts/${post.slug}`)}
             >
               <div className="flex items-start space-x-3">
-                {/* Thumbnail/Icon */}
-                <div className={`w-16 h-16 ${post.bg_color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                  <span className="text-2xl">{post.icon}</span>
+                {/* Thumbnail/Icon - Mostrar imagen si existe, sino icono */}
+                {post.featured_image_url || post.featured_image ? (
+                  <img
+                    src={post.featured_image_url || post.featured_image}
+                    alt={post.title}
+                    className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                    onError={(e) => {
+                      // Si falla la imagen, mostrar icono
+                      e.currentTarget.style.display = 'none'
+                      const iconDiv = e.currentTarget.nextElementSibling
+                      if (iconDiv) iconDiv.style.display = 'flex'
+                    }}
+                  />
+                ) : null}
+                <div 
+                  className={`w-16 h-16 ${post.bg_color || 'bg-gray-100'} rounded-lg flex items-center justify-center flex-shrink-0 ${(post.featured_image_url || post.featured_image) ? 'hidden' : ''}`}
+                  style={{ display: (post.featured_image_url || post.featured_image) ? 'none' : 'flex' }}
+                >
+                  <span className="text-2xl">{post.icon || '📄'}</span>
                 </div>
                 
                 {/* Content */}
