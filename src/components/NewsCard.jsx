@@ -15,10 +15,10 @@ const NewsCard = ({ icon, title, bgColor = "bg-gray-100", slug, post }) => {
 
   return (
     <div 
-      className="bg-white rounded-lg shadow-sm p-3 cursor-pointer hover:shadow-md transition-shadow w-full h-32 flex flex-col"
+      className="bg-white rounded-lg shadow-sm p-3 md:p-4 cursor-pointer hover:shadow-md transition-shadow w-full h-32 md:h-44 lg:h-48 flex flex-col"
       onClick={handleClick}
     >
-      <div className={`w-full h-16 rounded mb-3 flex items-center justify-center flex-shrink-0 overflow-hidden ${!post?.featured_image && !post?.featured_image_url ? bgColor : ''}`}>
+      <div className={`w-full h-16 md:h-28 lg:h-32 rounded mb-3 flex items-center justify-center flex-shrink-0 overflow-hidden ${!post?.featured_image && !post?.featured_image_url ? bgColor : ''}`}>
         {post?.featured_image || post?.featured_image_url ? (
           <img 
             src={post.featured_image || post.featured_image_url} 
@@ -30,16 +30,16 @@ const NewsCard = ({ icon, title, bgColor = "bg-gray-100", slug, post }) => {
               const parent = e.currentTarget.parentElement;
               parent.className = parent.className + ` ${bgColor}`;
               const iconSpan = document.createElement('span');
-              iconSpan.className = 'text-3xl';
+              iconSpan.className = 'text-3xl md:text-5xl';
               iconSpan.textContent = icon || '📄';
               parent.appendChild(iconSpan);
             }}
           />
         ) : (
-          <span className="text-3xl">{icon || '📄'}</span>
+          <span className="text-3xl md:text-5xl">{icon || '📄'}</span>
         )}
       </div>
-      <p className="text-xs text-gray-600 leading-tight text-left line-clamp-2 flex-1">{title}</p>
+      <p className="text-xs md:text-sm text-gray-600 leading-tight text-left line-clamp-2 flex-1">{title}</p>
     </div>
   )
 }

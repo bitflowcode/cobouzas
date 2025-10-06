@@ -34,6 +34,13 @@ body {
   }
 }
 
+/* Para desktop - añadir transición suave */
+@media (min-width: 769px) {
+  main {
+    transition: max-width 0.3s ease;
+  }
+}
+
 /* Asegurar que las secciones ocupen todo el ancho */
 .section-full-width {
   width: 100%;

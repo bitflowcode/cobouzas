@@ -17,23 +17,21 @@ const Citas = () => {
         <div className="w-6"></div>
       </div>
 
-      {/* Formulario Jotform - Ocupa toda la altura restante */}
-      <div className="flex-1 p-4">
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden h-full">
-          <iframe 
-            src="https://form.jotform.com/203043507089048" 
-            width="100%" 
-            height="100%" 
-            frameBorder="0" 
-            marginHeight="0" 
-            marginWidth="0"
-            title="Formulario de Cita Previa"
-            className="w-full h-full min-h-96"
-            style={{ height: 'calc(100vh - 120px)' }}
-          >
-            Cargando formulario...
-          </iframe>
-        </div>
+      {/* Formulario Jotform - Ocupa toda la altura restante sin márgenes */}
+      <div className="flex-1">
+        <iframe 
+          src="https://form.jotform.com/203043507089048" 
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          marginHeight="0" 
+          marginWidth="0"
+          title="Formulario de Cita Previa"
+          className="w-full h-full"
+          style={{ height: 'calc(100vh - 64px)' }}
+        >
+          Cargando formulario...
+        </iframe>
       </div>
     </div>
   )

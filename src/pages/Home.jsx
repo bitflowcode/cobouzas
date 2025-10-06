@@ -50,9 +50,9 @@ const Home = () => {
               </div>
             ) : (
               <div className="w-full overflow-hidden">
-                <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-hide md:justify-center md:flex-wrap md:overflow-visible">
+                <div className="flex overflow-x-auto gap-3 md:gap-4 pb-2 scrollbar-hide md:justify-center md:flex-wrap md:overflow-visible">
                   {posts.slice(0, 5).map((item) => (
-                    <div key={item.id} className="flex-shrink-0 w-32 md:w-40">
+                    <div key={item.id} className="flex-shrink-0 w-32 md:w-48 lg:w-56">
                       <NewsCard
                         icon={item.icon}
                         title={item.title}

@@ -20,7 +20,7 @@ const ServiceCard = ({ service, variant = 'full' }) => {
           className="bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow rounded-lg overflow-hidden"
           onClick={handleClick}
         >
-          <div className={`w-full h-48 bg-gradient-to-r ${service.gradient_from} ${service.gradient_to} flex items-center justify-center overflow-hidden`}>
+          <div className={`w-full h-48 md:h-64 lg:h-80 bg-gradient-to-r ${service.gradient_from} ${service.gradient_to} flex items-center justify-center overflow-hidden`}>
             {service.featured_image_url ? (
               <img 
                 src={service.featured_image_url} 
@@ -30,19 +30,19 @@ const ServiceCard = ({ service, variant = 'full' }) => {
                   // Si la imagen falla, mostrar el icono
                   e.currentTarget.style.display = 'none';
                   const parent = e.currentTarget.parentElement;
-                  parent.innerHTML = `<span class="text-6xl">${service.icon}</span>`;
+                  parent.innerHTML = `<span class="text-6xl md:text-7xl lg:text-8xl">${service.icon}</span>`;
                   parent.className = parent.className.replace('overflow-hidden', '');
                 }}
               />
             ) : (
-              <span className="text-6xl">{service.icon}</span>
+              <span className="text-6xl md:text-7xl lg:text-8xl">{service.icon}</span>
             )}
           </div>
-          <div className="p-4">
-            <span className="text-xs text-teal-600 font-medium uppercase tracking-wide">
+          <div className="p-4 md:p-5 lg:p-6">
+            <span className="text-xs md:text-sm text-teal-600 font-medium uppercase tracking-wide">
               Tratamiento
             </span>
-            <h3 className="font-semibold text-gray-800 mt-1">
+            <h3 className="font-semibold text-gray-800 mt-1 text-base md:text-lg">
               {service.short_description}
             </h3>
           </div>

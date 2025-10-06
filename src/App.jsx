@@ -4,6 +4,8 @@ import Home from './pages/Home'
 import Implantologia from './pages/Implantologia'
 import Estetica from './pages/Estetica'
 import Citas from './pages/Citas'
+import Cuestionario from './pages/Cuestionario'
+import Urgencias from './pages/Urgencias'
 import Cupones from './pages/Cupones'
 import Posts from './pages/Posts'
 import PostDetail from './pages/PostDetail'
@@ -22,6 +24,8 @@ function App() {
         <Route path="/implantologia" element={<Implantologia />} />
         <Route path="/estetica" element={<Estetica />} />
         <Route path="/citas" element={<Citas />} />
+        <Route path="/cuestionario" element={<Cuestionario />} />
+        <Route path="/urgencias" element={<Urgencias />} />
         <Route path="/cupones" element={<Cupones />} />
         <Route path="/servicios" element={<Services />} />
         {/* Rutas de posts */}

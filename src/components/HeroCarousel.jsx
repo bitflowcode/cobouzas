@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import urgenciasBackground from '../assets/urgencias-background.jpg'
+import serviciosBackground from '../assets/servicios-background.jpg'
+import citasBackground from '../assets/citas-background.jpg'
 
 const HeroCarousel = () => {
   const navigate = useNavigate()
@@ -10,32 +13,27 @@ const HeroCarousel = () => {
       id: 1,
       title: "Urgencias",
       subtitle: "HACER CONSULTA",
-      background: "bg-gradient-to-r from-red-400 to-red-600",
+      backgroundImage: urgenciasBackground,
       action: () => {
-        // Por ahora, mostrar alerta - después conectaremos con Jotform
-        alert('Próximamente: Formulario de urgencias')
+        navigate('/urgencias')
       }
     },
     {
       id: 2,
       title: "Servicios", 
       subtitle: "SABER MÁS",
-      background: "bg-gradient-to-r from-blue-400 to-blue-600",
+      backgroundImage: serviciosBackground,
       action: () => {
-        // Scroll a la sección de servicios en la misma página
-        document.getElementById('servicios-section')?.scrollIntoView({ 
-          behavior: 'smooth' 
-        })
+        navigate('/servicios')
       }
     },
     {
       id: 3,
       title: "Cita Previa",
       subtitle: "PEDIR CITA", 
-      background: "bg-gradient-to-r from-green-400 to-green-600",
+      backgroundImage: citasBackground,
       action: () => {
-        // Por ahora, mostrar alerta - después conectaremos con Jotform
-        alert('Próximamente: Formulario de cita previa')
+        navigate('/citas')
       }
     }
   ]
@@ -58,7 +56,7 @@ const HeroCarousel = () => {
   }
 
   return (
-    <div className="relative h-48 overflow-hidden">
+    <div className="relative h-48 md:h-72 lg:h-96 overflow-hidden">
       {/* Slides */}
       <div 
         className="flex transition-transform duration-500 ease-in-out h-full"
@@ -67,14 +65,15 @@ const HeroCarousel = () => {
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className={`min-w-full h-full ${slide.background} relative`}
+            className="min-w-full h-full relative bg-cover bg-center"
+            style={{ backgroundImage: `url(${slide.backgroundImage})` }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
               <div className="text-center text-white">
-                <h1 className="text-2xl font-bold mb-4">{slide.title}</h1>
+                <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">{slide.title}</h1>
                 <button 
                   onClick={handleButtonClick}
-                  className="bg-teal-500 hover:bg-teal-600 px-8 py-3 rounded-full font-medium transition-colors"
+                  className="bg-teal-500 hover:bg-teal-600 px-8 py-3 md:px-12 md:py-4 rounded-full font-medium text-base md:text-lg transition-colors"
                 >
                   {slide.subtitle}
                 </button>
