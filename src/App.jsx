@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ScrollToTop from './components/ScrollToTop'
 import Layout from './components/Layout'
+import InstallPWA from './components/InstallPWA'
 import Home from './pages/Home'
 import Implantologia from './pages/Implantologia'
 import Estetica from './pages/Estetica'
@@ -24,6 +25,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <InstallPWA />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useServices } from '../hooks/useApi'
+import { useShare } from '../hooks/useShare'
 
 const ServiceDetail = () => {
   const { slug } = useParams()
   const navigate = useNavigate()
+  const { share } = useShare()
   const [service, setService] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -33,6 +34,21 @@ const ServiceDetail = () => {
       fetchService()
     }
   }, [slug])
+
+  const handleShare = async () => {
+    if (!service) return
+
+    const result = await share({
+      title: `${service.name} - Centro Odontológico Bouzas`,
+      text: service.short_description || service.description,
+      url: `https://www.appdentalbouzas.com/${slug}`
+    })
+
+    // Si se usó clipboard (desktop), mostrar mensaje
+    if (result.success && result.method !== 'native') {
+      alert(result.message)
+    }
+  }
 
   if (loading) {
     return (
@@ -67,12 +83,22 @@ const ServiceDetail = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 flex items-center justify-between">
           <button 
             onClick={() => navigate('/')} 
-            className="text-teal-600 hover:text-teal-700 mb-4 inline-flex items-center"
+            className="text-teal-600 hover:text-teal-700 inline-flex items-center"
           >
             ← Volver al inicio
+          </button>
+          <button
+            onClick={handleShare}
+            className="text-teal-600 hover:text-teal-700 inline-flex items-center text-sm font-medium"
+            title="Compartir servicio"
+          >
+            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            Compartir
           </button>
         </div>
 
@@ -121,6 +147,19 @@ const ServiceDetail = () => {
                 <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                   {service.description}
                 </div>
+              </div>
+
+              {/* Share Button */}
+              <div className="mt-8 flex justify-center">
+                <button
+                  onClick={handleShare}
+                  className="inline-flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-medium transition-colors"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                  Compartir este servicio
+                </button>
               </div>
 
               {/* Call to Action */}

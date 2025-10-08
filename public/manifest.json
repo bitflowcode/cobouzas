@@ -3,26 +3,55 @@
   "short_name": "CO Bouzas",
   "description": "Centro Odontológico Bouzas - Cuidamos tu sonrisa",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#129099",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/logo-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["health", "medical"],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "/screenshot-home.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Página de inicio"
+    },
+    {
+      "src": "/screenshot-services.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Nuestros servicios"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Pedir Cita",
@@ -40,4 +69,3 @@
     }
   ]
 }
-

@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import { useShare } from '../hooks/useShare'
 import frenteImage from '../assets/frente-centro-odontologico-bouzas.jpeg'
 
 const Centro = () => {
   const navigate = useNavigate()
+  const { share } = useShare()
 
   const handleDirecciones = () => {
     window.open('https://www.google.com/maps/dir/?api=1&destination=42.22310827929633,-8.752053817730409', '_blank')
@@ -14,6 +16,19 @@ const Centro = () => {
 
   const handleEmail = () => {
     window.location.href = 'mailto:admin@dentalbouzas.com'
+  }
+
+  const handleShare = async () => {
+    const result = await share({
+      title: 'Centro Odontológico Bouzas',
+      text: 'Centro Odontológico Bouzas - Rúa Johan Carballeira, 6 Bajo, 36208 Bouzas, Vigo. Tel: 986 248 248',
+      url: 'https://www.appdentalbouzas.com/centro'
+    })
+
+    // Si se usó clipboard, mostrar mensaje
+    if (result.success && result.method !== 'native') {
+      alert(result.message)
+    }
   }
 
   return (
@@ -28,7 +43,7 @@ const Centro = () => {
         </button>
         <h1 className="text-lg font-medium">Información</h1>
         <button
-          onClick={() => navigate('/')}
+          onClick={handleShare}
           className="text-white"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,4 +167,3 @@ const Centro = () => {
 }
 
 export default Centro
-

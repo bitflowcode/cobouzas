@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useApi } from '../hooks/useApi'
+import { useShare } from '../hooks/useShare'
 
 const PostDetail = () => {
   const { slug } = useParams()
   const navigate = useNavigate()
   const { get } = useApi()
+  const { share } = useShare()
   const [post, setPost] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -14,7 +16,6 @@ const PostDetail = () => {
     const fetchPost = async () => {
       try {
         setLoading(true)
-        // Usar la ruta específica del post
         const response = await get(`/api/posts/${slug}`)
         
         if (response.success) {
@@ -34,6 +35,21 @@ const PostDetail = () => {
       fetchPost()
     }
   }, [slug])
+
+  const handleShare = async () => {
+    if (!post) return
+
+    const result = await share({
+      title: post.title,
+      text: post.excerpt || `${post.title} - Centro Odontológico Bouzas`,
+      url: `https://www.appdentalbouzas.com/posts/${slug}`
+    })
+
+    // Si se usó clipboard (desktop), mostrar mensaje
+    if (result.success && result.method !== 'native') {
+      alert(result.message)
+    }
+  }
 
   if (loading) {
     return (
@@ -81,12 +97,24 @@ const PostDetail = () => {
             </svg>
             Volver
           </button>
-          <button
-            onClick={() => navigate('/posts')}
-            className="text-teal-600 text-sm font-medium"
-          >
-            Ver todos
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleShare}
+              className="text-teal-600 text-sm font-medium flex items-center"
+              title="Compartir post"
+            >
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              Compartir
+            </button>
+            <button
+              onClick={() => navigate('/posts')}
+              className="text-teal-600 text-sm font-medium"
+            >
+              Ver todos
+            </button>
+          </div>
         </div>
       </div>
 
@@ -95,7 +123,6 @@ const PostDetail = () => {
         <article className="bg-white md:rounded-lg md:shadow-sm overflow-hidden">
           {/* Header del post */}
           <div className="p-4 md:p-6 border-b border-gray-200">
-            {/* Meta info - Sin icono */}
             <div className="w-full">
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 {post.title}
@@ -130,7 +157,7 @@ const PostDetail = () => {
             </div>
           </div>
 
-          {/* Featured Image - Más alta en desktop */}
+          {/* Featured Image */}
           {(post.featured_image_url || post.featured_image) && (
             <div className="w-full">
               <img
@@ -164,7 +191,7 @@ const PostDetail = () => {
               />
             ) : (
                 <div className="text-center py-8 text-gray-500">
-                  <div className="text-4xl mb-2">📝</div>
+                  <div className="text-4xl mb-2">📄</div>
                   <p>Este post aún no tiene contenido detallado.</p>
                 </div>
               )}
@@ -178,7 +205,13 @@ const PostDetail = () => {
                 <span>Centro Odontológico Bouzas</span>
               </div>
               <div className="flex space-x-2">
-                <button className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 transition-colors">
+                <button 
+                  onClick={handleShare}
+                  className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 transition-colors flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
                   Compartir
                 </button>
                 <button
