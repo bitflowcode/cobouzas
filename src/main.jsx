@@ -9,43 +9,14 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
-// Registro del Service Worker
-if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then(registration => {
-        console.log('✅ Service Worker registrado:', registration.scope);
-        
-        // Detectar actualizaciones
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // Nueva versión disponible
-              if (confirm('Nueva versión disponible. ¿Recargar para actualizar?')) {
-                window.location.reload();
-              }
-            }
-          });
-        });
-      })
-      .catch(error => {
-        console.error('❌ Error al registrar Service Worker:', error);
-      });
-  });
+// Registro del Service Worker de Firebase
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/firebase-messaging-sw.js')
+    .then((registration) => {
+      console.log('✅ Firebase Service Worker registrado:', registration.scope);
+    })
+    .catch((error) => {
+      console.error('❌ Error registrando Firebase Service Worker:', error);
+    });
 }
-
-// Detectar si la app está instalada
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  window.deferredPrompt = e;
-  console.log('💾 PWA instalable detectada');
-  // Aquí puedes mostrar tu botón de instalación personalizado
-});
-
-// Detectar cuando se instala
-window.addEventListener('appinstalled', () => {
-  console.log('✅ PWA instalada correctamente');
-  window.deferredPrompt = null;
-});

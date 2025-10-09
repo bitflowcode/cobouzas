@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ScrollToTop from './components/ScrollToTop'
 import Layout from './components/Layout'
 import InstallPWA from './components/InstallPWA'
+import NotificationHandler from './components/NotificationHandler'  // ← NUEVO
 import Home from './pages/Home'
 import Implantologia from './pages/Implantologia'
 import Estetica from './pages/Estetica'
@@ -26,6 +27,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <InstallPWA />
+      <NotificationHandler />  {/* ← NUEVO: Gestión de notificaciones push */}
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
