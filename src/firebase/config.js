@@ -83,7 +83,10 @@ export const onMessageListener = () =>
  */
 export const saveTokenToBackend = async (token) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/subscribe`, {
+    // Importar dinámicamente para evitar problemas de dependencias circulares
+    const { API_BASE_URL } = await import('../config/api');
+    
+    const response = await fetch(`${API_BASE_URL}/api/notifications/subscribe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

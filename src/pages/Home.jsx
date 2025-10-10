@@ -135,7 +135,7 @@ const Home = () => {
             Términos y condiciones
           </button>
           <button 
-            onClick={() => navigate('/privacidad')}
+            onClick={() => navigate('/politica-de-privacidad')}
             className="block w-full text-center py-3 text-gray-600 text-sm hover:text-teal-600 transition-colors"
           >
             Política de privacidad

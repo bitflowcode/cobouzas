@@ -6,9 +6,10 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header actualizado - Ancho completo con contenedor interno */}
-      <header className="bg-teal-500 text-white p-4 w-full shadow-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      {/* Header con extensión para Safe Area */}
+      <div className="bg-teal-500" style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+        <header className="bg-teal-500 text-white w-full shadow-md p-4">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm p-1.5 flex-shrink-0">
               <img 
@@ -47,7 +48,8 @@ const Layout = () => {
             </button>
           </div>
         </div>
-      </header>
+        </header>
+      </div>
 
       {/* Contenido de cada página - Ancho máximo en desktop con padding bottom para el nav */}
       <main className="max-w-7xl mx-auto pb-24">

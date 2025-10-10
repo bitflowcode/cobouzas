@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Safe Area para iOS */
+@layer base {
+  html {
+    /* Fondo teal que cubre todo, incluyendo el bounce/rubber band de iOS */
+    background-color: #14b8a6;
+  }
+  
+  body {
+    /* Fondo con gradiente para que el safe area superior tenga el color del header */
+    background: linear-gradient(to bottom, #14b8a6 0%, #14b8a6 200px, #f9fafb 200px);
+    background-attachment: fixed;
+  }
+}

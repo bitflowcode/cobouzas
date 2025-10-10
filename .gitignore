@@ -18,6 +18,11 @@ dist-ssr
 build
 *.local
 
+# Capacitor / Native builds
+android/
+ios/
+.capacitor/
+
 # Environment variables
 .env
 .env.local

@@ -66,7 +66,7 @@ const BottomNavigation = () => {
   }
 
   return (
-    <nav className="fixed bottom-4 left-4 right-4 z-50 safe-area-bottom">
+    <nav className="fixed left-4 right-4 z-50" style={{ bottom: 'max(env(safe-area-inset-bottom), 1rem)' }}>
       <div className="max-w-7xl mx-auto">
         <div 
           className="backdrop-blur-xl bg-white/80 border border-white/20 shadow-xl rounded-2xl overflow-hidden"

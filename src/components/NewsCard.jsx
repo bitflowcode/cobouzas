@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
 const NewsCard = ({ icon, title, bgColor = "bg-gray-100", slug, post }) => {
-  console.log('🃏 NewsCard recibe post:', post);
   const navigate = useNavigate()
 
   const handleClick = () => {

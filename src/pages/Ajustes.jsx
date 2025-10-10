@@ -203,7 +203,7 @@ const Ajustes = () => {
 
           {/* Privacidad */}
           <button
-            onClick={() => navigate('/privacidad')}
+            onClick={() => navigate('/politica-de-privacidad')}
             className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
           >
             <span className="text-gray-800">Política de privacidad</span>

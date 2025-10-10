@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useApi } from '../hooks/useApi'
 import { useShare } from '../hooks/useShare'
 
 const ServiceDetail = () => {
   const { slug } = useParams()
   const navigate = useNavigate()
+  const { get } = useApi()
   const { share } = useShare()
   const [service, setService] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -14,11 +16,10 @@ const ServiceDetail = () => {
     const fetchService = async () => {
       try {
         setLoading(true)
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.appdentalbouzas.com'}/api/services/${slug}`)
-        const data = await response.json()
+        const response = await get(`/api/services/${slug}`)
         
-        if (data.success) {
-          setService(data.data)
+        if (response.success) {
+          setService(response.data)
         } else {
           setError('Servicio no encontrado')
         }

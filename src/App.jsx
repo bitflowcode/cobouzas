@@ -21,8 +21,11 @@ import Ajustes from './pages/Ajustes'
 import Creditos from './pages/Creditos'
 import Contacto from './pages/Contacto'
 import './App.css'
+import useNativePushNotifications from './hooks/useNativePushNotifications';
 
 function App() {
+  // Inicializar notificaciones nativas (solo en iOS/Android)
+  useNativePushNotifications();
   return (
     <Router>
       <ScrollToTop />
@@ -45,7 +48,7 @@ function App() {
         <Route path="/ajustes" element={<Ajustes />} />
         <Route path="/creditos" element={<Creditos />} />
         <Route path="/terminos" element={<TerminosCondiciones />} />
-        <Route path="/privacidad" element={<PoliticaPrivacidad />} />
+        <Route path="/politica-de-privacidad" element={<PoliticaPrivacidad />} />
         {/* Rutas de posts */}
         <Route path="/posts" element={<Posts />} />
         <Route path="/posts/:slug" element={<PostDetail />} />

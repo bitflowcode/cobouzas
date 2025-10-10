@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-
-// Usar variable de entorno o fallback para desarrollo
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.appdentalbouzas.com';
+import { API_BASE_URL } from '../config/api';
 
 export const useApi = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -25,8 +23,10 @@ export const useApi = () => {
   };
 
   const apiRequest = async (endpoint, options = {}) => {
+    const fullUrl = `${API_BASE_URL}${endpoint}`;
+    
     try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      const response = await fetch(fullUrl, {
         headers: {
           'Content-Type': 'application/json',
           ...options.headers,
@@ -40,7 +40,7 @@ export const useApi = () => {
 
       return await response.json();
     } catch (error) {
-      console.error(`Error en ${endpoint}:`, error);
+      console.error(`Error en ${endpoint}:`, error.message);
       throw error;
     }
   };
