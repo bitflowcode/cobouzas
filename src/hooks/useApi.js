@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '../config/api';
+import { Capacitor } from '@capacitor/core';
+import { CapacitorHttp } from '@capacitor/core';
+import { getApiBaseUrl } from '../config/api';
 
 export const useApi = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -7,8 +9,7 @@ export const useApi = () => {
 
   const testConnection = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/health`);
-      const data = await response.json();
+      const data = await makeHttpRequest(`${getApiBaseUrl()}/api/health`, 'GET');
       
       if (data.status === 'OK') {
         setIsConnected(true);
@@ -22,23 +23,68 @@ export const useApi = () => {
     }
   };
 
-  const apiRequest = async (endpoint, options = {}) => {
-    const fullUrl = `${API_BASE_URL}${endpoint}`;
-    
-    try {
-      const response = await fetch(fullUrl, {
+  /**
+   * Función helper para hacer requests HTTP
+   * En nativo: usa CapacitorHttp (sin restricciones CORS)
+   * En web: usa fetch (estándar)
+   */
+  const makeHttpRequest = async (url, method = 'GET', data = null, headers = {}) => {
+    const isNative = Capacitor.isNativePlatform();
+
+    if (isNative) {
+      // Usar HTTP nativo de Capacitor (sin CORS)
+      const options = {
+        url,
+        method,
         headers: {
           'Content-Type': 'application/json',
-          ...options.headers,
+          ...headers,
         },
-        ...options,
-      });
+      };
+
+      if (data && (method === 'POST' || method === 'PUT')) {
+        options.data = data;
+      }
+
+      const response = await CapacitorHttp.request(options);
+      
+      if (response.status >= 400) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return response.data;
+    } else {
+      // Usar fetch en web
+      const options = {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          ...headers,
+        },
+      };
+
+      if (data && (method === 'POST' || method === 'PUT')) {
+        options.body = JSON.stringify(data);
+      }
+
+      const response = await fetch(url, options);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       return await response.json();
+    }
+  };
+
+  const apiRequest = async (endpoint, options = {}) => {
+    const fullUrl = `${getApiBaseUrl()}${endpoint}`;
+    
+    try {
+      const method = options.method || 'GET';
+      const data = options.body ? JSON.parse(options.body) : null;
+      
+      return await makeHttpRequest(fullUrl, method, data, options.headers);
     } catch (error) {
       console.error(`Error en ${endpoint}:`, error.message);
       throw error;
@@ -61,7 +107,7 @@ export const useApi = () => {
     get,
     post,
     testConnection,
-    apiUrl: API_BASE_URL
+    apiUrl: getApiBaseUrl()
   };
 };
 

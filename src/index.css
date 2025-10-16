@@ -15,3 +15,26 @@
     background-attachment: fixed;
   }
 }
+
+/* Safe Area Utilities para pantallas internas con contentInset=never */
+@layer utilities {
+  /* Padding top que empuja contenido debajo del notch */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  /* Margin top alternativo */
+  .mt-safe {
+    margin-top: env(safe-area-inset-top);
+  }
+  
+  /* Espaciador del alto exacto del safe-area */
+  .h-safe-top {
+    height: env(safe-area-inset-top);
+  }
+  
+  /* Padding bottom para área inferior (home indicator) */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

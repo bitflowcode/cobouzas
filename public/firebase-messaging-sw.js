@@ -60,11 +60,26 @@ self.addEventListener('activate', (event) => {
 });
 
 // Estrategia de cache: Network First, falling back to cache
+// ⚠️ EXCLUIR peticiones a la API para apps nativas
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+  
+  // NO interceptar peticiones a la API
+  if (url.hostname === 'api.appdentalbouzas.com' || 
+      url.pathname.startsWith('/api/')) {
+    // Dejar pasar directamente, sin cachear
+    return;
+  }
+  
+  // Solo cachear assets estáticos (HTML, CSS, JS, imágenes)
+  if (event.request.method !== 'GET') {
+    return;
+  }
+  
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Cachear respuestas exitosas
+        // Cachear solo respuestas exitosas de assets estáticos
         if (response && response.status === 200) {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then((cache) => {

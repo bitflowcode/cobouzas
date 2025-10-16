@@ -18,5 +18,4 @@ export const getApiBaseUrl = () => {
 };
 
 // Exportar como constante para uso directo
-export const API_BASE_URL = getApiBaseUrl();
 

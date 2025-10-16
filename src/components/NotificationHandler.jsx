@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
 import { 
   requestNotificationPermission, 
   onMessageListener,
@@ -10,6 +11,13 @@ export default function NotificationHandler() {
   const [showPermissionPrompt, setShowPermissionPrompt] = useState(false);
 
   useEffect(() => {
+    // NO ejecutar en plataformas nativas (iOS/Android)
+    // En nativo usamos Capacitor Push Notifications (ver useNativePushNotifications.js)
+    if (Capacitor.isNativePlatform()) {
+      console.log('ℹ️ NotificationHandler: Plataforma nativa detectada, componente deshabilitado');
+      return;
+    }
+
     // Verificar si el navegador soporta notificaciones
     if (!('Notification' in window)) {
       console.warn('Este navegador no soporta notificaciones');

@@ -53,7 +53,7 @@ const ServiceDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-safe">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mb-4"></div>
           <p className="text-gray-600">Cargando servicio...</p>
@@ -64,7 +64,7 @@ const ServiceDetail = () => {
 
   if (error || !service) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-safe">
         <div className="text-center">
           <div className="text-6xl mb-4">🦷</div>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Servicio no encontrado</h1>
@@ -82,7 +82,7 @@ const ServiceDetail = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 pb-8 pt-safe">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <button 

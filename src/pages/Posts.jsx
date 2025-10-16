@@ -18,7 +18,7 @@ const Posts = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b sticky top-0 z-10">
+      <div className="bg-white shadow-sm border-b sticky top-0 z-10 pt-safe">
         <div className="flex items-center justify-between p-4">
           <button
             onClick={() => navigate('/')}

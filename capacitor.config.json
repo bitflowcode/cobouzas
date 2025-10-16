@@ -29,6 +29,10 @@
   "server": {
     "androidScheme": "https",
     "iosScheme": "capacitor",
-    "cleartext": true
+    "cleartext": true,
+    "allowNavigation": [
+      "https://api.appdentalbouzas.com",
+      "https://cobouzas-images.b-cdn.net"
+    ]
   }
 }

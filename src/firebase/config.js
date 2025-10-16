@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { Capacitor } from '@capacitor/core';
 
 // ❌ NO COMPARTIR PÚBLICAMENTE ESTAS CREDENCIALES
 // 🔑 REEMPLAZAR CON TUS CREDENCIALES REALES DE FIREBASE CONSOLE
@@ -20,18 +21,33 @@ const VAPID_KEY = 'BLbcMol1tiGXxtC5Bi7memeeHSf1VR--FU0MtvOezn2GaLsowVd6-YtHWW095
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 
-// Inicializar Firebase Cloud Messaging
+// Inicializar Firebase Cloud Messaging SOLO EN WEB
+// En iOS/Android usamos Capacitor Push Notifications nativo
 let messaging = null;
-try {
-  messaging = getMessaging(app);
-} catch (error) {
-  console.error('Error inicializando Firebase Messaging:', error);
+
+if (!Capacitor.isNativePlatform()) {
+  // Solo inicializar en PWA/Web
+  try {
+    messaging = getMessaging(app);
+    console.log('✅ Firebase Messaging inicializado para Web');
+  } catch (error) {
+    console.error('❌ Error inicializando Firebase Messaging:', error);
+  }
+} else {
+  console.log('ℹ️ Plataforma nativa detectada. Firebase Messaging Web deshabilitado. Usando Capacitor Push Notifications.');
 }
 
 /**
  * Solicita permiso de notificaciones y obtiene el token FCM
+ * SOLO PARA WEB/PWA - En nativo usar Capacitor Push Notifications
  */
 export const requestNotificationPermission = async () => {
+  // Solo ejecutar en plataformas web
+  if (Capacitor.isNativePlatform()) {
+    console.log('ℹ️ requestNotificationPermission: Plataforma nativa, usar Capacitor Push Notifications');
+    return null;
+  }
+
   try {
     console.log('Solicitando permiso de notificaciones...');
     
@@ -67,9 +83,16 @@ export const requestNotificationPermission = async () => {
 
 /**
  * Escuchar mensajes en primer plano
+ * SOLO PARA WEB/PWA - En nativo usar Capacitor Push Notifications
  */
 export const onMessageListener = () =>
   new Promise((resolve) => {
+    // Solo ejecutar en plataformas web
+    if (Capacitor.isNativePlatform()) {
+      console.log('ℹ️ onMessageListener: Plataforma nativa, usar Capacitor Push Notifications');
+      return;
+    }
+
     if (messaging) {
       onMessage(messaging, (payload) => {
         console.log('📬 Mensaje recibido en primer plano:', payload);
@@ -84,9 +107,9 @@ export const onMessageListener = () =>
 export const saveTokenToBackend = async (token) => {
   try {
     // Importar dinámicamente para evitar problemas de dependencias circulares
-    const { API_BASE_URL } = await import('../config/api');
+    const { getApiBaseUrl } = await import('../config/api');
     
-    const response = await fetch(`${API_BASE_URL}/api/notifications/subscribe`, {
+    const response = await fetch(`${getApiBaseUrl()}/api/notifications/subscribe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

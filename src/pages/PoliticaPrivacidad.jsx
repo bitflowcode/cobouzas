@@ -6,7 +6,7 @@ const PoliticaPrivacidad = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-teal-500 text-white p-4 flex items-center justify-between sticky top-0 z-10">
+      <div className="bg-teal-500 text-white p-4 pt-safe flex items-center justify-between sticky top-0 z-10">
         <button 
           onClick={() => navigate('/')}
           className="text-white text-xl"
@@ -33,7 +33,7 @@ const PoliticaPrivacidad = () => {
               <h4 className="font-semibold text-gray-800 mb-2">Información básica sobre protección de datos</h4>
               <ul className="text-sm space-y-1">
                 <li><strong>Responsable:</strong> Centro Odontológico Bouzas</li>
-                <li><strong>Finalidad:</strong> Gestión de la aplicación "COBouzas – Centro Odontológico Bouzas" para iOS. Facilitar la prestación de los servicios solicitados.</li>
+                <li><strong>Finalidad:</strong> Gestión de la aplicación móvil "COBouzas – Centro Odontológico Bouzas". Facilitar la prestación de los servicios solicitados.</li>
                 <li><strong>Legitimación:</strong> Consentimiento expreso del interesado.</li>
                 <li><strong>Destinatarios:</strong> No se ceden a terceros, salvo consentimiento expreso del interesado.</li>
                 <li><strong>Derechos:</strong> Derechos de acceso, rectificación, cancelación, limitación del tratamiento, portabilidad, así como otros derechos detallados en la información adicional sobre protección de datos personales.</li>

@@ -6,7 +6,7 @@ const Citas = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header con botón back */}
-      <div className="bg-teal-500 text-white p-4 flex items-center justify-between flex-shrink-0">
+      <div className="bg-teal-500 text-white p-4 pt-safe flex items-center justify-between flex-shrink-0">
         <button 
           onClick={() => navigate('/')}
           className="text-white text-xl"

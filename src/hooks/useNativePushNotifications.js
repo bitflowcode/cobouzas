@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
-import { API_BASE_URL } from '../config/api';
+import { getApiBaseUrl } from '../config/api';
 
 const useNativePushNotifications = () => {
   useEffect(() => {
@@ -27,7 +27,7 @@ const useNativePushNotifications = () => {
           // Enviar token al backend
           try {
             const platform = Capacitor.getPlatform(); // 'ios' o 'android'
-            await fetch(`${API_BASE_URL}/api/notifications/subscribe`, {
+            await fetch(`${getApiBaseUrl()}/api/notifications/subscribe`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({

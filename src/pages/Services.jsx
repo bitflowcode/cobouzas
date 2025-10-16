@@ -9,7 +9,7 @@ const Services = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 pb-8 pt-safe">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mb-4"></div>
             <p className="text-gray-600">Cargando servicios...</p>
@@ -21,7 +21,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 pb-8 pt-safe">
         {/* Header */}
         <div className="text-center mb-8">
           <button 
