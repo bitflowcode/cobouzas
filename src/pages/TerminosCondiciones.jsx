@@ -125,7 +125,7 @@ const TerminosCondiciones = () => {
             </p>
 
             <p>
-              También está prohibido, excepto que se tenga consentimiento expreso de la marca, el uso de logotipos o creación de clones de aplicaciones en Google Play o iTunes para engañar o suplantar nuestra identidad.
+            También está prohibido, excepto que se tenga consentimiento expreso de la marca, el uso de logotipos o creación de clones de aplicaciones en las tiendas de aplicaciones para engañar o suplantar nuestra identidad.
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mt-8 mb-4">
