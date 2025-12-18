@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useShare } from '../hooks/useShare'
+import ShareIcon from '../components/ShareIcon'
 import frenteImage from '../assets/frente-centro-odontologico-bouzas.jpeg'
 
 const Centro = () => {
@@ -26,7 +27,7 @@ const Centro = () => {
     })
 
     // Si se usó clipboard, mostrar mensaje
-    if (result.success && result.method !== 'native') {
+    if (result.success && result.method === 'clipboard') {
       alert(result.message)
     }
   }
@@ -37,7 +38,8 @@ const Centro = () => {
       <div className="bg-teal-500 text-white p-4 pt-safe flex items-center justify-between sticky top-0 z-10">
         <button 
           onClick={() => navigate('/')}
-          className="text-white text-xl"
+          className="text-white text-3xl font-light leading-none"
+          aria-label="Cerrar"
         >
           ✕
         </button>
@@ -45,10 +47,9 @@ const Centro = () => {
         <button
           onClick={handleShare}
           className="text-white"
+          aria-label="Compartir"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-          </svg>
+          <ShareIcon className="w-6 h-6" />
         </button>
       </div>
 
@@ -120,9 +121,12 @@ const Centro = () => {
 
           {/* Call to action */}
           <div className="text-center mb-6">
-            <p className="text-teal-600 font-medium text-lg mb-4">
+            <button
+              onClick={() => navigate('/citas')}
+              className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors shadow-sm hover:shadow-md"
+            >
               RESERVE SU CITA PREVIA
-            </p>
+            </button>
           </div>
 
           {/* Botones de contacto */}

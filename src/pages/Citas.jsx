@@ -9,7 +9,8 @@ const Citas = () => {
       <div className="bg-teal-500 text-white p-4 pt-safe flex items-center justify-between flex-shrink-0">
         <button 
           onClick={() => navigate('/')}
-          className="text-white text-xl"
+          className="text-white text-3xl font-light leading-none"
+          aria-label="Cerrar"
         >
           ✕
         </button>

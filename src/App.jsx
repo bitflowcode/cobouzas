@@ -34,26 +34,26 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          {/* Páginas estáticas específicas */}
+          <Route path="implantologia" element={<Implantologia />} />
+          <Route path="estetica" element={<Estetica />} />
+          <Route path="citas" element={<Citas />} />
+          <Route path="cuestionario" element={<Cuestionario />} />
+          <Route path="urgencias" element={<Urgencias />} />
+          <Route path="cupones" element={<Cupones />} />
+          <Route path="servicios" element={<Services />} />
+          <Route path="centro" element={<Centro />} />
+          <Route path="contacto" element={<Contacto />} />
+          <Route path="ajustes" element={<Ajustes />} />
+          <Route path="creditos" element={<Creditos />} />
+          <Route path="terminos" element={<TerminosCondiciones />} />
+          <Route path="politica-de-privacidad" element={<PoliticaPrivacidad />} />
+          {/* Rutas de posts */}
+          <Route path="posts" element={<Posts />} />
+          <Route path="posts/:slug" element={<PostDetail />} />
+          {/* Ruta dinámica para servicios (debe ir al final para no interferir con las estáticas) */}
+          <Route path=":slug" element={<ServiceDetail />} />
         </Route>
-        {/* Páginas estáticas específicas (tienen prioridad) */}
-        <Route path="/implantologia" element={<Implantologia />} />
-        <Route path="/estetica" element={<Estetica />} />
-        <Route path="/citas" element={<Citas />} />
-        <Route path="/cuestionario" element={<Cuestionario />} />
-        <Route path="/urgencias" element={<Urgencias />} />
-        <Route path="/cupones" element={<Cupones />} />
-        <Route path="/servicios" element={<Services />} />
-        <Route path="/centro" element={<Centro />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/ajustes" element={<Ajustes />} />
-        <Route path="/creditos" element={<Creditos />} />
-        <Route path="/terminos" element={<TerminosCondiciones />} />
-        <Route path="/politica-de-privacidad" element={<PoliticaPrivacidad />} />
-        {/* Rutas de posts */}
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/posts/:slug" element={<PostDetail />} />
-        {/* Ruta dinámica para servicios (debe ir al final para no interferir con las estáticas) */}
-        <Route path="/:slug" element={<ServiceDetail />} />
       </Routes>
     </Router>
   )

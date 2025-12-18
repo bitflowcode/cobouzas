@@ -1,8 +1,10 @@
 import { useCallback } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { Share } from '@capacitor/share';
 
 /**
  * Hook reutilizable para compartir contenido
- * Compatible con Web Share API y fallback a portapapeles
+ * Compatible con Capacitor Share (iOS/Android) y Web Share API con fallback a portapapeles
  */
 export const useShare = () => {
   const share = useCallback(async ({ title, text, url }) => {
@@ -14,18 +16,30 @@ export const useShare = () => {
     };
 
     try {
-      // Verificar si el navegador soporta Web Share API
+      // 1. Plataformas nativas (iOS/Android) - Usar plugin de Capacitor
+      if (Capacitor.isNativePlatform()) {
+        await Share.share({
+          title: shareData.title,
+          text: shareData.text,
+          url: shareData.url,
+          dialogTitle: 'Compartir'
+        });
+        console.log('✅ Contenido compartido correctamente (Capacitor)');
+        return { success: true, method: 'capacitor-native' };
+      }
+      
+      // 2. Web - Verificar si el navegador soporta Web Share API
       if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
-        console.log('✅ Contenido compartido correctamente');
-        return { success: true, method: 'native' };
+        console.log('✅ Contenido compartido correctamente (Web Share API)');
+        return { success: true, method: 'web-share-api' };
       } else if (navigator.share) {
         // Algunos navegadores tienen share pero no canShare
         await navigator.share(shareData);
-        console.log('✅ Contenido compartido correctamente');
-        return { success: true, method: 'native' };
+        console.log('✅ Contenido compartido correctamente (Web Share API)');
+        return { success: true, method: 'web-share-api' };
       } else {
-        // Fallback: Copiar al portapapeles
+        // 3. Fallback: Copiar al portapapeles
         const textToCopy = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
         
         if (navigator.clipboard && navigator.clipboard.writeText) {

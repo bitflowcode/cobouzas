@@ -23,15 +23,22 @@ const Services = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 pb-8 pt-safe">
         {/* Header */}
-        <div className="text-center mb-8">
-          <button 
-            onClick={() => navigate('/')} 
-            className="text-teal-600 hover:text-teal-700 mb-4 inline-flex items-center"
-          >
-            ← Volver al inicio
-          </button>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Nuestros Servicios</h1>
-          <p className="text-gray-600">Descubre todos los tratamientos que ofrecemos en nuestro centro</p>
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <button 
+              onClick={() => navigate('/')} 
+              className="text-teal-600 hover:text-teal-700"
+              aria-label="Volver al inicio"
+            >
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <h1 className="text-2xl font-bold text-gray-800 flex-1 text-center mr-7">Nuestros Servicios</h1>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-600">Descubre todos los tratamientos que ofrecemos en nuestro centro</p>
+          </div>
         </div>
 
         {/* Services Grid */}

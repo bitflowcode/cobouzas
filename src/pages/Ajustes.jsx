@@ -1,36 +1,24 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useShare } from '../hooks/useShare'
 
 const Ajustes = () => {
   const navigate = useNavigate()
-  const [distanceUnit, setDistanceUnit] = useState(
-    localStorage.getItem('distanceUnit') || 'km'
-  )
-
-  const handleDistanceChange = (unit) => {
-    setDistanceUnit(unit)
-    localStorage.setItem('distanceUnit', unit)
-  }
+  const { share } = useShare()
 
   const handleContactSupport = () => {
     window.location.href = 'mailto:admin@dentalbouzas.com?subject=Soporte%20T%C3%A9cnico%20-%20COBouzas'
   }
 
   const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Centro Odontológico Bouzas',
-          text: 'Descarga la app de Centro Odontológico Bouzas para gestionar tus citas y conocer nuestros servicios',
-          url: 'https://www.appdentalbouzas.com'
-        })
-      } catch (err) {
-        console.log('Error sharing:', err)
-      }
-    } else {
-      // Fallback: copiar al portapapeles
-      navigator.clipboard.writeText('https://www.appdentalbouzas.com')
-      alert('Enlace copiado al portapapeles')
+    const result = await share({
+      title: 'Centro Odontológico Bouzas',
+      text: 'Descarga la app de Centro Odontológico Bouzas para gestionar tus citas y conocer nuestros servicios',
+      url: 'https://www.appdentalbouzas.com'
+    })
+
+    // Si se usó clipboard (desktop), mostrar mensaje
+    if (result.success && result.method === 'clipboard') {
+      alert(result.message)
     }
   }
 
@@ -49,7 +37,8 @@ const Ajustes = () => {
       <div className="bg-teal-500 text-white p-4 pt-safe flex items-center justify-between sticky top-0 z-10">
         <button 
           onClick={() => navigate('/')}
-          className="text-white text-xl"
+          className="text-white text-3xl font-light leading-none"
+          aria-label="Cerrar"
         >
           ✕
         </button>
@@ -118,41 +107,6 @@ const Ajustes = () => {
             <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </button>
-        </div>
-
-        {/* Distancias */}
-        <div className="mt-6 mb-2 px-4">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-            Distancias
-          </h2>
-        </div>
-
-        <div className="bg-white divide-y divide-gray-200">
-          {/* Millas */}
-          <button
-            onClick={() => handleDistanceChange('millas')}
-            className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
-          >
-            <span className="text-gray-800">Millas</span>
-            {distanceUnit === 'millas' && (
-              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            )}
-          </button>
-
-          {/* Kilómetros */}
-          <button
-            onClick={() => handleDistanceChange('km')}
-            className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
-          >
-            <span className="text-gray-800">Kilómetros</span>
-            {distanceUnit === 'km' && (
-              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            )}
           </button>
         </div>
 

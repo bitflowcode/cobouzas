@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useApi } from '../hooks/useApi'
 import { useShare } from '../hooks/useShare'
+import ShareIcon from '../components/ShareIcon'
 
 const PostDetail = () => {
   const { slug } = useParams()
@@ -46,7 +47,7 @@ const PostDetail = () => {
     })
 
     // Si se usó clipboard (desktop), mostrar mensaje
-    if (result.success && result.method !== 'native') {
+    if (result.success && result.method === 'clipboard') {
       alert(result.message)
     }
   }
@@ -90,12 +91,12 @@ const PostDetail = () => {
         <div className="flex items-center justify-between p-4">
           <button
             onClick={() => navigate(-1)}
-            className="text-blue-600 text-sm font-medium flex items-center"
+            className="text-teal-600 hover:text-teal-700"
+            aria-label="Volver"
           >
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Volver
           </button>
           <div className="flex items-center gap-3">
             <button
@@ -103,9 +104,7 @@ const PostDetail = () => {
               className="text-teal-600 text-sm font-medium flex items-center"
               title="Compartir post"
             >
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
+              <ShareIcon className="w-4 h-4 mr-1" />
               Compartir
             </button>
             <button
@@ -208,9 +207,7 @@ const PostDetail = () => {
                   onClick={handleShare}
                   className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 transition-colors flex items-center"
                 >
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
+                  <ShareIcon className="w-4 h-4 mr-1" />
                   Compartir
                 </button>
                 <button

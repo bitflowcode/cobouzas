@@ -22,17 +22,20 @@ const Posts = () => {
         <div className="flex items-center justify-between p-4">
           <button
             onClick={() => navigate('/')}
-            className="text-blue-600 text-sm font-medium"
+            className="text-teal-600 hover:text-teal-700"
+            aria-label="Volver"
           >
-            ← Volver
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
-          <h1 className="text-lg font-semibold text-gray-800">Novedades</h1>
-          <div className="w-16"></div> {/* Spacer */}
+          <h1 className="text-2xl font-bold text-gray-800">Novedades</h1>
+          <div className="w-7"></div> {/* Spacer */}
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-4 space-y-4">
+      <div className="p-4 pt-2 space-y-4">
         {posts.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-gray-500">No hay posts disponibles</p>
