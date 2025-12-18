@@ -17,7 +17,7 @@ const Home = () => {
       <HeroCarousel />
 
       {/* API Status - Solo visible en desarrollo */}
-      {process.env.NODE_ENV === 'development' && (
+      {import.meta.env.DEV && (
         <div className="bg-gray-100 p-2 text-center text-xs border-b">
           <span className={`inline-block w-2 h-2 rounded-full mr-2 ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
           API Backend: {isConnected ? 'Conectada' : 'Desconectada'} ({apiUrl})
